@@ -19,6 +19,19 @@ public class Main {
             System.out.println("6. Exit");
             System.out.println("Pick an option: ");
             int choice = Integer.parseInt(input.nextLine());
+            try {
+                switch (choice) {
+                    case 1:
+                        System.out.println("Account ID: ");
+                        String id1 = input.nextLine();
+
+                        Account acc = bank.findAccount(id1);
+                        System.out.println(acc.getAccountType() + " account balance: $" + acc.getBalance());
+
+                }
+            } catch(AccountNotFoundException e){
+                System.out.println("Error : " + e.getMessage());
+            }
         }
     }
 }
