@@ -56,6 +56,11 @@ public class Banking {
             System.out.println("No history file yet make a transaction first.");
         }
     }
+    void deposit(String accountId, double amount) throws AccountNotFoundException, InvalidAmountException{
+        Account acc = findAccount(accountId);
+        Transaction transfer = acc.deposit(amount);
+        saveToHistory(acc, transfer);
+    }
 
 }
 
