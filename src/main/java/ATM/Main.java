@@ -37,11 +37,28 @@ public class Main {
 
                         bank.deposit(id2, depositAmount);
                         System.out.println("Deposit done");
+                        break;
+                    case 3:
+                        System.out.print("Account ID: ");
+                        String id3 = input.nextLine();
+
+                        System.out.print("Amount to withdraw: ");
+                        double withdrawAmount = input.nextDouble();
+
+                        bank.withdraw(id3, withdrawAmount);
+                        System.out.println("Withdraw done");
+                        break;
                 }
             } catch(AccountNotFoundException e){
                 System.out.println("Error : " + e.getMessage());
             }
             catch(InvalidAmountException e){
+                System.out.println("Error: " + e.getMessage());
+            }
+            catch(InsufficientFundsException e){
+                System.out.println("Error: " + e.getMessage());
+            }
+            catch (DailyLimitExceededException e){
                 System.out.println("Error: " + e.getMessage());
             }
         }
