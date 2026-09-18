@@ -22,15 +22,27 @@ public class Main {
             try {
                 switch (choice) {
                     case 1:
-                        System.out.println("Account ID: ");
+                        System.out.print("Account ID: ");
                         String id1 = input.nextLine();
 
                         Account acc = bank.findAccount(id1);
                         System.out.println(acc.getAccountType() + " account balance: $" + acc.getBalance());
+                        break;
+                    case 2:
+                        System.out.print("Account ID: ");
+                        String id2 = input.nextLine();
 
+                        System.out.print("Enter amount to deposit: ");
+                        double depositAmount = input.nextDouble();
+
+                        bank.deposit(id2, depositAmount);
+                        System.out.println("Deposit done");
                 }
             } catch(AccountNotFoundException e){
                 System.out.println("Error : " + e.getMessage());
+            }
+            catch(InvalidAmountException e){
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
