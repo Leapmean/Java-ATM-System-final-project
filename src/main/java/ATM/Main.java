@@ -48,6 +48,21 @@ public class Main {
                         bank.withdraw(id3, withdrawAmount);
                         System.out.println("Withdraw done");
                         break;
+                    case 4:
+                        System.out.println("Form account: ");
+                        String formId = input.nextLine();
+
+                        System.out.println("To account: ");
+                        String toId = input.nextLine();
+
+                        System.out.println("Amount to Transfer: ");
+                        double amountToTransfer = input.nextDouble();
+
+                        bank.transfered(formId, toId, amountToTransfer);
+                        System.out.println("Transfer done");
+                        break;
+
+
                 }
             } catch(AccountNotFoundException e){
                 System.out.println("Error : " + e.getMessage());
