@@ -42,5 +42,12 @@ public class Account {
         balance = balance - amount;
     }
 
-
+    protected  void checkBasicWithdrawRule(double amount) throws InvalidAmountException, DailyLimitExceededException{
+        if (amount <= 0){
+            throw new InvalidAmountException("Amount must be larger than $0.");
+        }
+        if(todayWithdraw + amount >dailyLimit){
+            throw new DailyLimitExceededException("This is out of your Daily Withdraw Limit.");
+        }
+    }
 }
