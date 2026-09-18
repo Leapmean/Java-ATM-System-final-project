@@ -27,5 +27,13 @@ public class Account {
     public double getBalance(){
         return balance;
     }
+    public Transaction deposit(double amount) throws InvalidAmountException{
+        if (amount <= 0){
+            throw new InvalidAmountException("Deposit should be more than 0$.");
+        }
+        balance = balance + amount;
+        return new Transaction("Deposit : $" , amount, balance);
+    }
+
 
 }
