@@ -61,6 +61,21 @@ public class Banking {
         Transaction transfer = acc.deposit(amount);
         saveToHistory(acc, transfer);
     }
+    void withdraw(String accountId, double amount)
+            throws AccountNotFoundException, InvalidAmountException,InsufficientFundsException, DailyLimitExceededException{
+        Account acc = findAccount(accountId);
+        Transaction transfer = acc.withdraw(amount);
+        saveToHistory(acc, transfer);
+    }
+    void transfered(String formId, String toId, double amount)
+            throws AccountNotFoundException, InsufficientFundsException, InvalidAmountException, DailyLimitExceededException{
+        Account form = findAccount(formId);
+        Account to = findAccount(toId);
+        form.withdraw(amount);
+        to.deposit(amount);
 
+        saveToHistory(form, new Transaction("Transfer out to " + toId, amount, form.getBalance()));
+        saveToHistory(form, new Transaction("Transfer in form " + formId, amount, to.getBalance()));
+    }
 }
 
