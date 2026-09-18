@@ -32,6 +32,30 @@ public class Banking {
             System.out.println("Could not save to history file: " + e.getMessage());
         }
     }
+    void showHistory(String accountId) throws AccountNotFoundException{
+        Account acc = findAccount(accountId);
+        try{
+            FileReader fr = new FileReader(historyFile);
+            BufferedReader br = new BufferedReader((fr));
+
+            System.out.println("History for " + acc.getAccountId() + " | Owner name: " + acc.getName() + " :");
+            String line = br.readLine();
+            boolean foundAny = false;
+            while (line != null){
+                if(line.startsWith(accountId + " | ")){
+                    System.out.println("line");
+                    foundAny = true;
+                }
+                line = br.readLine();
+            }
+            if (!foundAny){
+                System.out.println("No history yet for this account.");
+            }
+            br.close();
+        }catch (IOException e){
+            System.out.println("No history file yet make a transaction first.");
+        }
+    }
 
 }
 
