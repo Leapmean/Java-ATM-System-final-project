@@ -49,20 +49,29 @@ public class Main {
                         System.out.println("Withdraw done");
                         break;
                     case 4:
-                        System.out.println("Form account: ");
+                        System.out.print("Form account: ");
                         String formId = input.nextLine();
 
-                        System.out.println("To account: ");
+                        System.out.print("To account: ");
                         String toId = input.nextLine();
 
-                        System.out.println("Amount to Transfer: ");
+                        System.out.print("Amount to Transfer: ");
                         double amountToTransfer = input.nextDouble();
 
                         bank.transfered(formId, toId, amountToTransfer);
                         System.out.println("Transfer done");
                         break;
+                    case 5:
+                        System.out.print("Account ID: ");
+                        String id5 = input.nextLine();
 
-
+                        bank.showHistory(id5);
+                        break;
+                    case 6:
+                        bankingFunction = false;
+                        System.out.println("Goodbye! see you again.");
+                    default:
+                        System.out.println("Please enter number from 1-6.");
                 }
             } catch(AccountNotFoundException e){
                 System.out.println("Error : " + e.getMessage());
