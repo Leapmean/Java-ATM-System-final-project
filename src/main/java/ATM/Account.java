@@ -17,4 +17,15 @@ public class Account {
         this.balance = balance;
         this.todayWithdraw = todayWithdraw;
     }
+
+    public String getAccountId(){
+        return accountId;
+    }
+    public String getName(){
+        return name;
+    }
+    public double getBalance(){
+        return balance;
+    }
+
 }
