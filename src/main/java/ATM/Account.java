@@ -2,7 +2,7 @@ package ATM;
 
 import java.util.Scanner;
 
-public class Account {
+public abstract class Account {
     private String accountId;
     private String name;
     private String password;
@@ -50,4 +50,8 @@ public class Account {
             throw new DailyLimitExceededException("This is out of your Daily Withdraw Limit.");
         }
     }
+    public abstract Transaction withdraw(double amount)
+            throws InvalidAmountException, InsufficientFundsException, DailyLimitExceededException;
+
+    public abstract String getAccountType();
 }
