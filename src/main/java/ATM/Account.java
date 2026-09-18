@@ -38,5 +38,9 @@ public class Account {
         todayWithdraw = todayWithdraw + amount;
     }
 
+    protected void reduceBalance(double amount){
+        balance = balance - amount;
+    }
+
 
 }
