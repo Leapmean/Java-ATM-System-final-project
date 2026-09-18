@@ -34,6 +34,9 @@ public class Account {
         balance = balance + amount;
         return new Transaction("Deposit : $" , amount, balance);
     }
+    protected void addToWithdrawToday(double amount){
+        todayWithdraw = todayWithdraw + amount;
+    }
 
 
 }
