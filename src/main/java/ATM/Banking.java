@@ -9,8 +9,27 @@ import java.io.BufferedReader;
 public class Banking {
 
     ArrayList<Account> accounts = new ArrayList<Account>();
-    int accountCount = 1;
+    int accountCounter = 1;
     String historyFile = "History.txt";
+
+    Account createAccount(String name, double startingMoney, String password, String type) {
+        String id = "A00" + accountCounter;
+        accountCounter++;
+
+        Account acc;
+        if (type.equalsIgnoreCase("savings")) {
+            acc = new SavingAccount(id, name, password, startingMoney);
+        } else {
+            acc = new CheckingAccount(id, name, password, startingMoney);
+        }
+
+        accounts.add(acc);
+        return acc;
+    }
+
+    void addAccount(Account acc) {
+        accounts.add(acc);
+    }
 
     Account findAccount(String accountId) throws AccountNotFoundException{
         for(int i = 0; i < accounts.size(); i++){
@@ -25,7 +44,7 @@ public class Banking {
             FileWriter fw = new FileWriter(historyFile, true);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.write(acc.getAccountId() + " | " + acc.getName() + " | " + acc.toString());
+            bw.write(acc.getAccountId() + " | " + acc.getName() + " | " + transfer.toString());
             bw.newLine();
             bw.close();
         }catch (IOException e){
@@ -43,7 +62,7 @@ public class Banking {
             boolean foundAny = false;
             while (line != null){
                 if(line.startsWith(accountId + " | ")){
-                    System.out.println("line");
+                    System.out.println(line);
                     foundAny = true;
                 }
                 line = br.readLine();
@@ -67,15 +86,15 @@ public class Banking {
         Transaction transfer = acc.withdraw(amount);
         saveToHistory(acc, transfer);
     }
-    void transfered(String formId, String toId, double amount)
+    void transfered(String fromId, String toId, double amount)
             throws AccountNotFoundException, InsufficientFundsException, InvalidAmountException, DailyLimitExceededException{
-        Account form = findAccount(formId);
+        Account from = findAccount(fromId);
         Account to = findAccount(toId);
-        form.withdraw(amount);
+        from.withdraw(amount);
         to.deposit(amount);
 
-        saveToHistory(form, new Transaction("Transfer out to " + toId, amount, form.getBalance()));
-        saveToHistory(form, new Transaction("Transfer in form " + formId, amount, to.getBalance()));
+        saveToHistory(from, new Transaction("Transfer out to " + toId, amount, from.getBalance()));
+        saveToHistory(from, new Transaction("Transfer in from " + fromId, amount, to.getBalance()));
     }
 }
 
