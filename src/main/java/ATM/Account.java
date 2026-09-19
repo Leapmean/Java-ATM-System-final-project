@@ -1,21 +1,19 @@
 package ATM;
 
-import java.util.Scanner;
-
 public abstract class Account {
     private String accountId;
     private String name;
     private String password;
     private double balance;
     protected double dailyLimit;
-    private double todayWithdraw;
+    private double todayWithdraw = 0;
 
-    Account(String accountId, String name, String password, double balance, double todayWithdraw){
+    Account(String accountId, String name, String password, double balance, double dailyLimit){
         this.accountId = accountId;
         this.name = name;
         this.password = password;
         this.balance = balance;
-        this.todayWithdraw = todayWithdraw;
+        this.dailyLimit = dailyLimit;
     }
 
     public String getAccountId(){
@@ -46,7 +44,7 @@ public abstract class Account {
         if (amount <= 0){
             throw new InvalidAmountException("Amount must be larger than $0.");
         }
-        if(todayWithdraw + amount >dailyLimit){
+        if(todayWithdraw + amount > dailyLimit){
             throw new DailyLimitExceededException("This is out of your Daily Withdraw Limit.");
         }
     }
