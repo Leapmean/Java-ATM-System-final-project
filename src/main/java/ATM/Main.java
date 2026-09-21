@@ -9,12 +9,12 @@ public class Main {
         Scanner input = new Scanner(System.in);
         boolean bankingFunction = true;
 
-        Account alice = new SavingAccount("A001", "Somaneth", "sreyLngong123", 500);
-        Account bob = new CheckingAccount("A002", "Bob", "bongslo1maneth", 200);
+        Account alice = new SavingAccount("100 100 100", "Somaneth", "sreyLngong123", 500);
+        Account bob = new CheckingAccount("200 200 200", "Bob", "bongslo1maneth", 200);
         bank.addAccount(alice);
         bank.addAccount(bob);
-        System.out.println("Test accounts ready: " + alice.getAccountId() + " (Alice, "
-                + alice.getAccountType() + "), " + bob.getAccountId() + " (Bob, "
+        System.out.println("Test accounts ready: " + alice.getAccountNumber() + " (Alice, "
+                + alice.getAccountType() + "), " + bob.getAccountNumber() + " (Bob, "
                 + bob.getAccountType() + ")");
 
         while (bankingFunction) {
