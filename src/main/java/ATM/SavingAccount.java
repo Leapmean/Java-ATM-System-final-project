@@ -2,8 +2,8 @@ package ATM;
 
 public class SavingAccount extends Account {
     private double minimumBalance = 0;
-    public SavingAccount(String accountId, String name, String password, double balance){
-        super(accountId, name,password, balance, 10000);
+    public SavingAccount(String accountNumber, String name, String password, double balance){
+        super(accountNumber, name,password, balance, 10000);
     }
 
     @Override

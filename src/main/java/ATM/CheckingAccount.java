@@ -2,8 +2,8 @@ package ATM;
 
 public class CheckingAccount extends Account {
     private double overDraftLimit = 50;
-    public CheckingAccount(String accountId, String name, String password, double balance){
-        super(accountId, name, password, balance, 10000);
+    public CheckingAccount(String accountNumber, String name, String password, double balance){
+        super(accountNumber, name, password, balance, 10000);
     }
     @Override
     public Transaction withdraw(double amount)

@@ -1,23 +1,23 @@
 package ATM;
 
 public abstract class Account {
-    private String accountId;
+    private String accountNumber;
     private String name;
     private String password;
     private double balance;
     protected double dailyLimit;
     private double todayWithdraw = 0;
 
-    Account(String accountId, String name, String password, double balance, double dailyLimit){
-        this.accountId = accountId;
+    Account(String accountNumber, String name, String password, double balance, double dailyLimit){
+        this.accountNumber = accountNumber;
         this.name = name;
         this.password = password;
         this.balance = balance;
         this.dailyLimit = dailyLimit;
     }
 
-    public String getAccountId(){
-        return accountId;
+    public String getAccountNumber(){
+        return accountNumber;
     }
     public String getName(){
         return name;

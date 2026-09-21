@@ -31,9 +31,9 @@ public class Banking {
         accounts.add(acc);
     }
 
-    Account findAccount(String accountId) throws AccountNotFoundException{
+    Account findAccount(String accountNumber) throws AccountNotFoundException{
         for(int i = 0; i < accounts.size(); i++){
-            if(accounts.get(i).getAccountId().equals(accountId)) {
+            if(accounts.get(i).getAccountNumber().equals(accountNumber)) {
                 return accounts.get(i);
             }
         }
@@ -44,24 +44,25 @@ public class Banking {
             FileWriter fw = new FileWriter(historyFile, true);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.write(acc.getAccountId() + " | " + acc.getName() + " | " + transfer.toString());
+            bw.write(acc.getAccountNumber() + " | " + acc.getName() + " | " + transfer.toString());
             bw.newLine();
             bw.close();
         }catch (IOException e){
             System.out.println("Could not save to history file: " + e.getMessage());
         }
     }
-    void showHistory(String accountId) throws AccountNotFoundException{
-        Account acc = findAccount(accountId);
+    void showHistory(String accountNumber) throws AccountNotFoundException{
+        Account acc = findAccount(accountNumber);
         try{
+
             FileReader fr = new FileReader(historyFile);
             BufferedReader br = new BufferedReader((fr));
 
-            System.out.println("History for " + acc.getAccountId() + " | Owner name: " + acc.getName() + " :");
+            System.out.println("History for " + acc.getAccountNumber() + " | Owner name: " + acc.getName() + " :");
             String line = br.readLine();
             boolean foundAny = false;
             while (line != null){
-                if(line.startsWith(accountId + " | ")){
+                if(line.startsWith(accountNumber + " | ")){
                     System.out.println(line);
                     foundAny = true;
                 }
@@ -75,14 +76,14 @@ public class Banking {
             System.out.println("No history file yet make a transaction first.");
         }
     }
-    void deposit(String accountId, double amount) throws AccountNotFoundException, InvalidAmountException{
-        Account acc = findAccount(accountId);
+    void deposit(String accountNumber, double amount) throws AccountNotFoundException, InvalidAmountException{
+        Account acc = findAccount(accountNumber);
         Transaction transfer = acc.deposit(amount);
         saveToHistory(acc, transfer);
     }
-    void withdraw(String accountId, double amount)
+    void withdraw(String accountNumber, double amount)
             throws AccountNotFoundException, InvalidAmountException,InsufficientFundsException, DailyLimitExceededException{
-        Account acc = findAccount(accountId);
+        Account acc = findAccount(accountNumber);
         Transaction transfer = acc.withdraw(amount);
         saveToHistory(acc, transfer);
     }
