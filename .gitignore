@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 .kotlin
 docs/
+History.txt
 
 ### IntelliJ IDEA ###
 .idea/
