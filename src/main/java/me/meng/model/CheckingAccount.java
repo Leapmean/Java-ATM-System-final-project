@@ -1,8 +1,8 @@
-package org.example.model;
+package me.meng.model;
 
-import org.example.exception.DailyLimitExceededException;
-import org.example.exception.InsufficientFundsException;
-import org.example.exception.InvalidAmountException;
+import me.meng.exception.DailyLimitExceededException;
+import me.meng.exception.InsufficientFundsException;
+import me.meng.exception.InvalidAmountException;
 
 public class CheckingAccount extends Account {
     private double overDraftLimit = 50;

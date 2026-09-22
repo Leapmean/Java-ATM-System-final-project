@@ -1,4 +1,4 @@
-package org.example.model;
+package me.meng.model;
 
 public class Transaction {
     private String type; //to define what type of action "withdraw deposit or transfer"

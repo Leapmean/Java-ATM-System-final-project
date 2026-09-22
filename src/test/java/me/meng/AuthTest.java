@@ -1,8 +1,8 @@
-package org.example;
+package me.meng;
 
-import org.example.exception.*;
-import org.example.model.Card;
-import org.example.service.AuthService;
+import me.meng.exception.*;
+import me.meng.model.Card;
+import me.meng.service.AuthService;
 
 public class AuthTest {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package org.example.exception;
+package me.meng.exception;
 
 public class InvalidAmountException extends Exception {
     public InvalidAmountException(String message) {

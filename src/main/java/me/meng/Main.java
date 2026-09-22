@@ -1,15 +1,15 @@
-package org.example;
+package me.meng;
 
-import org.example.exception.AccountLockedException;
-import org.example.exception.AccountNotFoundException;
-import org.example.exception.DailyLimitExceededException;
-import org.example.exception.InsufficientFundsException;
-import org.example.exception.InvalidAmountException;
-import org.example.exception.InvalidPinException;
-import org.example.model.Account;
-import org.example.model.Card;
-import org.example.service.AuthService;
-import org.example.service.Banking;
+import me.meng.exception.AccountLockedException;
+import me.meng.exception.AccountNotFoundException;
+import me.meng.exception.DailyLimitExceededException;
+import me.meng.exception.InsufficientFundsException;
+import me.meng.exception.InvalidAmountException;
+import me.meng.exception.InvalidPinException;
+import me.meng.model.Account;
+import me.meng.model.Card;
+import me.meng.service.AuthService;
+import me.meng.service.Banking;
 
 import java.util.Scanner;
 

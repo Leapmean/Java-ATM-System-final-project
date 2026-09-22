@@ -1,4 +1,4 @@
-package org.example.exception;
+package me.meng.exception;
 
 public class InvalidPinException extends Exception{
     public InvalidPinException(String message){

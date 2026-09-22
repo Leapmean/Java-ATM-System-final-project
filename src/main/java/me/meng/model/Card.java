@@ -1,4 +1,4 @@
-package org.example.model;
+package me.meng.model;
 
 public class Card {
     private String cardNumber;
