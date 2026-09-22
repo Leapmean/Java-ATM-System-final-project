@@ -1,4 +1,8 @@
-package ATM;
+package org.example.model;
+
+import org.example.exception.DailyLimitExceededException;
+import org.example.exception.InsufficientFundsException;
+import org.example.exception.InvalidAmountException;
 
 public class CheckingAccount extends Account {
     private double overDraftLimit = 50;

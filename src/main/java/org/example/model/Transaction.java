@@ -1,11 +1,11 @@
-package ATM;
+package org.example.model;
 
 public class Transaction {
     private String type; //to define what type of action "withdraw deposit or transfer"
     private double amount;
     private double newBalance;
 
-    Transaction(String type, double amount, double newBalance){
+    public Transaction(String type, double amount, double newBalance){
         this.type = type;
         this.amount = amount;
         this.newBalance = newBalance;

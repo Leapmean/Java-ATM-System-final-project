@@ -21,7 +21,7 @@ public class Card {
     public void setPin (String newPin){
         this.pin = newPin;
     }
-    private void addFailedAttempts(){
+    public void addFailedAttempts(){
         failedAttempts++;
         if (failedAttempts>=3){
             locked = true;

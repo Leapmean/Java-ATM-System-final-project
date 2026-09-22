@@ -1,4 +1,14 @@
-package ATM;
+package org.example.service;
+
+import org.example.exception.AccountNotFoundException;
+import org.example.exception.DailyLimitExceededException;
+import org.example.exception.InsufficientFundsException;
+import org.example.exception.InvalidAmountException;
+import org.example.model.Account;
+import org.example.model.CheckingAccount;
+import org.example.model.SavingAccount;
+import org.example.model.Transaction;
+
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -12,7 +22,7 @@ public class Banking {
     int accountCounter = 1;
     String historyFile = "History.txt";
 
-    Account createAccount(String name, double startingMoney, String password, String type) {
+    public Account createAccount(String name, double startingMoney, String password, String type) {
         String id = "A00" + accountCounter;
         accountCounter++;
 
@@ -27,11 +37,11 @@ public class Banking {
         return acc;
     }
 
-    void addAccount(Account acc) {
+    public void addAccount(Account acc) {
         accounts.add(acc);
     }
 
-    Account findAccount(String accountNumber) throws AccountNotFoundException{
+    public Account findAccount(String accountNumber) throws AccountNotFoundException{
         for(int i = 0; i < accounts.size(); i++){
             if(accounts.get(i).getAccountNumber().equals(accountNumber)) {
                 return accounts.get(i);
@@ -51,7 +61,7 @@ public class Banking {
             System.out.println("Could not save to history file: " + e.getMessage());
         }
     }
-    void showHistory(String accountNumber) throws AccountNotFoundException{
+    public void showHistory(String accountNumber) throws AccountNotFoundException{
         Account acc = findAccount(accountNumber);
         try{
 
@@ -76,18 +86,18 @@ public class Banking {
             System.out.println("No history file yet make a transaction first.");
         }
     }
-    void deposit(String accountNumber, double amount) throws AccountNotFoundException, InvalidAmountException{
+    public void deposit(String accountNumber, double amount) throws AccountNotFoundException, InvalidAmountException{
         Account acc = findAccount(accountNumber);
         Transaction transfer = acc.deposit(amount);
         saveToHistory(acc, transfer);
     }
-    void withdraw(String accountNumber, double amount)
+    public void withdraw(String accountNumber, double amount)
             throws AccountNotFoundException, InvalidAmountException,InsufficientFundsException, DailyLimitExceededException{
         Account acc = findAccount(accountNumber);
         Transaction transfer = acc.withdraw(amount);
         saveToHistory(acc, transfer);
     }
-    void transfered(String fromId, String toId, double amount)
+    public void transfered(String fromId, String toId, double amount)
             throws AccountNotFoundException, InsufficientFundsException, InvalidAmountException, DailyLimitExceededException{
         Account from = findAccount(fromId);
         Account to = findAccount(toId);
