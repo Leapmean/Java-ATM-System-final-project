@@ -30,6 +30,9 @@ public class Card {
     public void resetFailedAttempts(){
         failedAttempts = 0;
     }
+    public void lock(){
+        locked = true;
+    }
     public void unlock(){
         locked = false;
         failedAttempts = 0;

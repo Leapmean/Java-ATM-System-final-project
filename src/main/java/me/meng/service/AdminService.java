@@ -46,6 +46,11 @@ public class AdminService {
                 + " | Balance: $" + acc.getBalance() + " | " + status;
     }
 
+    public void lockAccount(String accountNumber) throws AccountNotFoundException {
+        Card card = auth.findCardByAccountNumber(accountNumber);
+        auth.lockCard(card.getCardNumber());
+    }
+
     public void unlockAccount(String accountNumber) throws AccountNotFoundException {
         Card card = auth.findCardByAccountNumber(accountNumber);
         auth.unlockCard(card.getCardNumber());

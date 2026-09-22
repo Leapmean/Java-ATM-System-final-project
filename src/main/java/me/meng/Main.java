@@ -153,8 +153,9 @@ public class Main {
             System.out.println("=========ADMIN MENU=========");
             System.out.println("1. Create new account");
             System.out.println("2. View all accounts");
-            System.out.println("3. Unlock a locked account");
-            System.out.println("4. Log out");
+            System.out.println("3. Lock an account");
+            System.out.println("4. Unlock a locked account");
+            System.out.println("5. Log out");
             System.out.print("Pick an option: ");
             int choice;
             try {
@@ -192,17 +193,23 @@ public class Main {
                         }
                         break;
                     case 3:
+                        System.out.print("Account number to lock: ");
+                        String accountToLock = input.nextLine();
+                        admin.lockAccount(accountToLock);
+                        System.out.println("Account locked.");
+                        break;
+                    case 4:
                         System.out.print("Account number to unlock: ");
                         String accountNumber = input.nextLine();
                         admin.unlockAccount(accountNumber);
                         System.out.println("Account unlocked.");
                         break;
-                    case 4:
+                    case 5:
                         inAdmin = false;
                         System.out.println("Logging out of admin mode.");
                         break;
                     default:
-                        System.out.println("Please enter number from 1-4.");
+                        System.out.println("Please enter number from 1-5.");
                 }
             } catch (InvalidAmountException | InvalidPinException | AccountNotFoundException
                     | NumberFormatException e) {

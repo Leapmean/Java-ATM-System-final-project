@@ -50,6 +50,13 @@ public class AuthService {
         }
         card.setPin(newPin);
     }
+    public void lockCard(String cardNumber) throws AccountNotFoundException{
+        Card card = cards.get(cardNumber);
+        if (card == null){
+            throw new AccountNotFoundException("Card number not found.");
+        }
+        card.lock();
+    }
     public void unlockCard(String cardNumber) throws AccountNotFoundException{
         Card card = cards.get(cardNumber);
         if (card == null){
