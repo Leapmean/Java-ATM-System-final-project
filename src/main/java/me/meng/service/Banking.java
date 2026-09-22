@@ -122,6 +122,6 @@ public class Banking {
     to.deposit(amount);
 
     saveToHistory(from, new Transaction("Transfer out to " + toId, amount, from.getBalance()));
-    saveToHistory(from, new Transaction("Transfer in from " + fromId, amount, to.getBalance()));
+    saveToHistory(to, new Transaction("Transfer in from " + fromId, amount, to.getBalance()));
   }
 }
