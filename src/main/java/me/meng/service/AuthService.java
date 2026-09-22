@@ -3,6 +3,7 @@ import me.meng.exception.AccountLockedException;
 import me.meng.exception.AccountNotFoundException;
 import me.meng.exception.InvalidPinException;
 import me.meng.model.Card;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,17 @@ public class AuthService {
     private Map<String, Card> cards = new HashMap<>();
     public void addCard(Card card){
         cards.put(card.getCardNumber(), card);
+    }
+    public Collection<Card> getAllCards(){
+        return cards.values();
+    }
+    public Card findCardByAccountNumber(String accountNumber) throws AccountNotFoundException{
+        for (Card card : cards.values()){
+            if (card.getAccountNumber().equals(accountNumber)){
+                return card;
+            }
+        }
+        throw new AccountNotFoundException("No card linked to account " + accountNumber);
     }
     public Card login(String cardNumber, String pin) throws AccountNotFoundException, AccountLockedException,InvalidPinException{
         Card card= cards.get(cardNumber);

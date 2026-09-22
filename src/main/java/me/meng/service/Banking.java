@@ -10,6 +10,7 @@ import me.meng.model.SavingAccount;
 import me.meng.model.Transaction;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,6 +40,10 @@ public class Banking {
 
     public void addAccount(Account acc) {
         accounts.add(acc);
+    }
+
+    public List<Account> getAllAccounts() {
+        return new ArrayList<>(accounts);
     }
 
     public Account findAccount(String accountNumber) throws AccountNotFoundException{
