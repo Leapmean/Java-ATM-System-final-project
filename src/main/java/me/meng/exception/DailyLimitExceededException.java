@@ -1,7 +1,7 @@
 package me.meng.exception;
 
 public class DailyLimitExceededException extends Exception {
-    public DailyLimitExceededException(String message) {
-        super(message);
-    }
+  public DailyLimitExceededException(String message) {
+    super(message);
+  }
 }
