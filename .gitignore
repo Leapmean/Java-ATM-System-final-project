@@ -1,10 +1,14 @@
 target/
+dependency-reduced-pom.xml
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 .kotlin
 docs/
-History.txt
+atm.db
+atm.db-shm
+atm.db-wal
+atm.db-journal
 
 ### IntelliJ IDEA ###
 .idea/

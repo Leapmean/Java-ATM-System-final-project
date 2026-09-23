@@ -2,6 +2,7 @@ package me.meng;
 
 import java.util.List;
 import java.util.Scanner;
+import me.meng.db.Database;
 import me.meng.exception.AccountLockedException;
 import me.meng.exception.AccountNotFoundException;
 import me.meng.exception.DailyLimitExceededException;
@@ -18,27 +19,37 @@ public class Main {
   private static final String ADMIN_PASSWORD = "admin123";
 
   public static void main(String[] args) {
-    Banking bank = new Banking();
-    AuthService auth = new AuthService();
-    AdminService admin = new AdminService(bank, auth);
-    Scanner input = new Scanner(System.in);
+    try (Database db = new Database("atm.db")) {
+      Banking bank = new Banking(db.getDataSource());
+      AuthService auth = new AuthService(db.getDataSource());
+      AdminService admin = new AdminService(bank, auth);
+      Scanner input = new Scanner(System.in);
 
-    Account alice = bank.createAccount("Somaneth", 500, "sreyLngong123", "savings");
-    Account bob = bank.createAccount("Bob", 200, "bongslo1maneth", "checking");
-    auth.addCard(new Card("1111222233334444", alice.getAccountNumber(), "1234"));
-    auth.addCard(new Card("5555666677778888", bob.getAccountNumber(), "4321"));
-    System.out.println(
-        "Test cards ready: 1111222233334444 (PIN 1234, "
-            + alice.getAccountType()
-            + " "
-            + alice.getAccountNumber()
-            + "), 5555666677778888 (PIN 4321, "
-            + bob.getAccountType()
-            + " "
-            + bob.getAccountNumber()
-            + ")");
-    System.out.println("Admin password: " + ADMIN_PASSWORD);
+      if (bank.getAllAccounts().isEmpty()) {
+        Account alice = bank.createAccount("Somaneth", 500, "sreyLngong123", "savings");
+        Account bob = bank.createAccount("Bob", 200, "bongslo1maneth", "checking");
+        auth.addCard(new Card("1111222233334444", alice.getAccountNumber(), "1234"));
+        auth.addCard(new Card("5555666677778888", bob.getAccountNumber(), "4321"));
+        System.out.println(
+            "Test cards ready: 1111222233334444 (PIN 1234, "
+                + alice.getAccountType()
+                + " "
+                + alice.getAccountNumber()
+                + "), 5555666677778888 (PIN 4321, "
+                + bob.getAccountType()
+                + " "
+                + bob.getAccountNumber()
+                + ")");
+      } else {
+        System.out.println("Loaded " + bank.getAllAccounts().size() + " account(s) from atm.db.");
+      }
+      System.out.println("Admin password: " + ADMIN_PASSWORD);
 
+      runMenu(bank, auth, admin, input);
+    }
+  }
+
+  private static void runMenu(Banking bank, AuthService auth, AdminService admin, Scanner input) {
     boolean running = true;
     while (running) {
       System.out.println("=========ATM SYSTEM=========");

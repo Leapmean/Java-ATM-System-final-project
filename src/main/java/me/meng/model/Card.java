@@ -19,6 +19,10 @@ public class Card {
     return pin.equals(enteredPin);
   }
 
+  public String getPin() {
+    return pin;
+  }
+
   public void setPin(String newPin) {
     this.pin = newPin;
   }
