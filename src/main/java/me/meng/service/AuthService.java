@@ -47,6 +47,9 @@ public class AuthService {
       throw new InvalidAccountDetailsException(
           "Card number " + card.getCardNumber() + " is already in use.");
     }
+    if (!card.getCardNumber().matches("\\d+")) {
+      throw new InvalidAccountDetailsException("Card number must contain only digits.");
+    }
     cards.put(card.getCardNumber(), card);
     String sql =
         "INSERT INTO cards (card_number, account_number, pin, failed_attempts, locked) "
