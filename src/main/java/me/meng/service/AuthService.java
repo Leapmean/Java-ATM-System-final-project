@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 import me.meng.exception.AccountLockedException;
 import me.meng.exception.AccountNotFoundException;
+import me.meng.exception.InvalidAccountDetailsException;
 import me.meng.exception.InvalidPinException;
 import me.meng.model.Card;
 
@@ -38,7 +39,14 @@ public class AuthService {
     }
   }
 
-  public void addCard(Card card) {
+  public void addCard(Card card) throws InvalidAccountDetailsException {
+    if (card.getCardNumber() == null || card.getCardNumber().isBlank()) {
+      throw new InvalidAccountDetailsException("Card number is required.");
+    }
+    if (cards.containsKey(card.getCardNumber())) {
+      throw new InvalidAccountDetailsException(
+          "Card number " + card.getCardNumber() + " is already in use.");
+    }
     cards.put(card.getCardNumber(), card);
     String sql =
         "INSERT INTO cards (card_number, account_number, pin, failed_attempts, locked) "
@@ -107,8 +115,8 @@ public class AuthService {
     if (!card.checkPin(oldPin)) {
       throw new InvalidPinException("Old PIN is incorrect.");
     }
-    if (newPin.length() != 4) {
-      throw new InvalidPinException("New PIN must be 4 digits.");
+    if (!newPin.matches("\\d{4}")) {
+      throw new InvalidPinException("New PIN must be exactly 4 digits.");
     }
     card.setPin(newPin);
     persistCard(card);

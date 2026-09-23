@@ -2,6 +2,7 @@ package me.meng.service;
 
 import java.util.List;
 import me.meng.exception.AccountNotFoundException;
+import me.meng.exception.InvalidAccountDetailsException;
 import me.meng.exception.InvalidAmountException;
 import me.meng.exception.InvalidPinException;
 import me.meng.model.Account;
@@ -18,12 +19,12 @@ public class AdminService {
 
   public Account createAccount(
       String name, double startingBalance, String type, String cardNumber, String pin)
-      throws InvalidAmountException, InvalidPinException {
+      throws InvalidAmountException, InvalidPinException, InvalidAccountDetailsException {
     if (startingBalance < 0) {
       throw new InvalidAmountException("Starting balance cannot be negative.");
     }
-    if (pin.length() != 4) {
-      throw new InvalidPinException("PIN must be 4 digits.");
+    if (!pin.matches("\\d{4}")) {
+      throw new InvalidPinException("PIN must be exactly 4 digits.");
     }
     Account account = banking.createAccount(name, startingBalance, pin, type);
     auth.addCard(new Card(cardNumber, account.getAccountNumber(), pin));

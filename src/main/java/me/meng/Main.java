@@ -7,6 +7,7 @@ import me.meng.exception.AccountLockedException;
 import me.meng.exception.AccountNotFoundException;
 import me.meng.exception.DailyLimitExceededException;
 import me.meng.exception.InsufficientFundsException;
+import me.meng.exception.InvalidAccountDetailsException;
 import me.meng.exception.InvalidAmountException;
 import me.meng.exception.InvalidPinException;
 import me.meng.model.Account;
@@ -18,7 +19,7 @@ import me.meng.service.Banking;
 public class Main {
   private static final String ADMIN_PASSWORD = "admin123";
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InvalidAccountDetailsException {
     try (Database db = new Database("atm.db")) {
       Banking bank = new Banking(db.getDataSource());
       AuthService auth = new AuthService(db.getDataSource());
@@ -110,7 +111,13 @@ public class Main {
       System.out.println("6. Change PIN");
       System.out.println("7. Log out");
       System.out.print("Pick an option: ");
-      int choice = Integer.parseInt(input.nextLine());
+      int choice;
+      try {
+        choice = Integer.parseInt(input.nextLine());
+      } catch (NumberFormatException e) {
+        System.out.println("Please enter a number.");
+        continue;
+      }
       try {
         switch (choice) {
           case 1:
@@ -160,7 +167,8 @@ public class Main {
       } catch (InvalidAmountException
           | InsufficientFundsException
           | DailyLimitExceededException
-          | InvalidPinException e) {
+          | InvalidPinException
+          | NumberFormatException e) {
         System.out.println("Error: " + e.getMessage());
       }
     }
@@ -238,6 +246,7 @@ public class Main {
         }
       } catch (InvalidAmountException
           | InvalidPinException
+          | InvalidAccountDetailsException
           | AccountNotFoundException
           | NumberFormatException e) {
         System.out.println("Error: " + e.getMessage());

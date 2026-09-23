@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import me.meng.exception.AccountNotFoundException;
 import me.meng.exception.DailyLimitExceededException;
 import me.meng.exception.InsufficientFundsException;
+import me.meng.exception.InvalidAccountDetailsException;
 import me.meng.exception.InvalidAmountException;
 import me.meng.model.Account;
 import me.meng.model.CheckingAccount;
@@ -55,7 +56,16 @@ public class Banking {
     }
   }
 
-  public Account createAccount(String name, double startingMoney, String password, String type) {
+  public Account createAccount(String name, double startingMoney, String password, String type)
+      throws InvalidAccountDetailsException {
+    if (name == null || name.isBlank()) {
+      throw new InvalidAccountDetailsException("Owner name is required.");
+    }
+    if (!"savings".equalsIgnoreCase(type) && !"checking".equalsIgnoreCase(type)) {
+      throw new InvalidAccountDetailsException(
+          "Account type must be 'savings' or 'checking', got: " + type);
+    }
+
     String id = "A00" + accountCounter;
     accountCounter++;
 
